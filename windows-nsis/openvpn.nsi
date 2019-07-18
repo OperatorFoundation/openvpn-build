@@ -117,6 +117,8 @@ LangString DESC_SecLZODLLs ${LANG_ENGLISH} "Install LZO DLLs locally (may be omi
 
 LangString DESC_SecPKCS11DLLs ${LANG_ENGLISH} "Install PKCS#11 helper DLLs locally (may be omitted if DLLs are already installed globally)."
 
+LangString DESC_SecTransportPluginDLLs ${LANG_ENGLISH} "Install Transport Plugin DLLs."
+
 LangString DESC_SecService ${LANG_ENGLISH} "Install the ${PACKAGE_NAME} service wrappers"
 
 LangString DESC_SecInteractiveService ${LANG_ENGLISH} "Install the ${PACKAGE_NAME} Interactive Service (allows running OpenVPN-GUI without admin privileges)"
@@ -575,6 +577,18 @@ Section "-PKCS#11 DLLs" SecPKCS11DLLs
 
 SectionEnd
 
+Section "-TransportPlugin DLLs" SecTransportPluginDLLs
+
+	SetOverwrite on
+	SetOutPath "$INSTDIR\bin"
+
+	${If} ${RunningX64}
+		File "libshapeshifter-obfs4.dll"
+	${Else}
+		File "libshapeshifter-obfs4.dll"
+	${EndIf}
+
+SectionEnd
 
 ;--------------------------------
 ;Installer Sections
@@ -624,6 +638,7 @@ ${EndIf}
 	!insertmacro SelectByParameter ${SecOpenSSLDLLs} SELECT_OPENSSLDLLS 1
 	!insertmacro SelectByParameter ${SecLZODLLs} SELECT_LZODLLS 1
 	!insertmacro SelectByParameter ${SecPKCS11DLLs} SELECT_PKCS11DLLS 1
+	!insertmacro SelectByParameter ${SecTransportPluginDLLs} SELECT_TransportPluginDLLS 1
 
 	!insertmacro MULTIUSER_INIT
 	SetShellVarContext all
@@ -716,6 +731,7 @@ SectionEnd
 	!insertmacro MUI_DESCRIPTION_TEXT ${SecOpenSSLDLLs} $(DESC_SecOpenSSLDLLs)
 	!insertmacro MUI_DESCRIPTION_TEXT ${SecLZODLLs} $(DESC_SecLZODLLs)
 	!insertmacro MUI_DESCRIPTION_TEXT ${SecPKCS11DLLs} $(DESC_SecPKCS11DLLs)
+	!insertmacro MUI_DESCRIPTION_TEXT ${SecTransportPluginDLLs} $(DESC_SecTransportPluginDLLs)
 	!insertmacro MUI_DESCRIPTION_TEXT ${SecAddShortcuts} $(DESC_SecAddShortcuts)
 	!insertmacro MUI_DESCRIPTION_TEXT ${SecLaunchGUIOnLogon} $(DESC_SecLaunchGUIOnLogon)
 	!insertmacro MUI_DESCRIPTION_TEXT ${SecDisableSavePass} $(DESC_SecDisableSavePass)
