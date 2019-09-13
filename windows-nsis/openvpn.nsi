@@ -584,8 +584,10 @@ Section "-TransportPlugin DLLs" SecTransportPluginDLLs
 
 	${If} ${RunningX64}
 		File "libshapeshifter-obfs4.dll"
+		File "libshapeshifter-shadow.dll"
 	${Else}
 		File "libshapeshifter-obfs4.dll"
+		File "libshapeshifter-shadow.dll"
 	${EndIf}
 
 SectionEnd
